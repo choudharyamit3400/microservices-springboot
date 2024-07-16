@@ -228,7 +228,6 @@ eg Employee service is running at port 8080 on localhost so below endpoint can b
 
 http://localhost:8081/swagger-ui/index.html
 
-- if you run into  any issue then please reach to me on [Linkedin](https://www.linkedin.com/in/amitkumarusa/) or you can email me at amit.kumar.
-usa35@gmail.com
+### if you run into  any issue then please reach to me on [Linkedin](https://www.linkedin.com/in/amitkumarusa/) or you can email me at amit.kumar.usa35@gmail.com
 
 
