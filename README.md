@@ -2,7 +2,11 @@ This is a  work in progress  microservice architecture that could be followed to
 There is ongoing work to add  a lot of other capabilities and modules needed to create a real world application like system.
 Below mentioned modules & patterns  are used to create these micro services .
 
-Spring Cloud 
+Please discard indentation and formatting  of this readme file as its not as per the standard what we generally have . 
+This readme is intended  for my personal use as  quick refer doc for any module .
+Once all the modules are covered then it would be upadted accordingly 
+
+Spring  
 1. Sping Cloud
 2. Sping Cloud Apigateway
 3. Sping Cloud Config
@@ -13,10 +17,15 @@ Spring Cloud
 8. API documentation with openAPIDoc with  Swagger UI-- In progress
 9. Spring Boot Starter
 10. Spring Test Suite 
-11. MySql with CRUD repository 
 12. Fault Tolerance and Fallback strategy --> Circuit Breaker & Retry with Ressilence4j (Hystrix is depreciated )
 13. Load Balancing by Spring Cloud Default Gateway (Ribbon is depreceated with Spring Boot 3)
 14. Global Exeption Hanlders -- In progress
+
+Others
+1. Lombok --> to provide getter , setters  & constrcutors
+2. ModelMapper --> to map entity beans to DTO
+3. DTOs --> to abstract internal properties of Entities
+4. MySql with CRUD repository
 
 CI CD 
 1. AWS ECS & Fargate - In progress
@@ -73,6 +82,11 @@ Circuit Breaker Pattern
 
 ![image](https://github.com/user-attachments/assets/20b9d72c-06fb-4430-aafa-1b7585298439)
 
+confgi-server repo   should look something like 
+
+![image](https://github.com/user-attachments/assets/6bd1dc4e-8d52-4050-b9de-0b87e841ccf5)
+
+
 Config Refersh Acrhitecture with Kafka 
 
 
@@ -110,11 +124,23 @@ General Docker flow for your understanding
 
 <img width="671" alt="image" src="https://github.com/user-attachments/assets/9a60b5aa-3fa3-4a8f-a982-f502693ce7d1">
 
-Steps to Docerize an SpringBoot Application 
+Steps to Dockerize an SpringBoot Application 
 
 <img width="706" alt="image" src="https://github.com/user-attachments/assets/820e8e3b-ba44-4c98-8331-79d4bfba2b78">
 
 
-This Readme file is a work in progress and will get updated after every  pending item is finished and checked in to this repository 
+This Readme file is a work in progress and will get updated after every  pending item is finished and checked in to this repository
+
+
+Steps to setup and run these micro services. 
+1. download zipkin.jar from [here](https://zipkin.io/pages/quickstart) , start it by using command "java -jar filename" , it would start at port 9411 and can be access as http://127.0.0.1:9411/
+2. create 3 databses department_db , employee_db & organization_db in mysql database (you can use any other database just dont forget to use the correct dependecy and db configuration in application.properties )
+3. install docker desktop and run a local image of rabbitMq  by using commnad  "docker run --rm -it -p 5672:5672 {rabbitmqImagename that  you have installed in docker desktop}"
+4. always Start Service Registry first -- it will start at  port 8761
+5. then start config server --> it would need an additional github repo by name config-server and this repo should have {servicename}.prperties file , it would start on port 8888
+6. then start apigateway - it would  start at port 9191 , if you add any new resource in your services then it should be configured in apigateway's application.properties
+7. then start department service , it would start at port 8080
+8. then start organization service , it would start at port 8083
+9. then start employee service , it would start at port 8081
 
 
