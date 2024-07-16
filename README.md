@@ -2,7 +2,11 @@ This is a  work in progress  microservice architecture that could be followed to
 There is ongoing work to add  a lot of other capabilities and modules needed to create a real world application like system.
 Below-mentioned modules & patterns  are used to create these microservices .
 
-Spring Cloud 
+Please discard indentation and formatting  of this readme file as its not as per the standard what we generally have . 
+This readme is intended  for my personal use as  quick refer doc for any module .
+Once all the modules are covered then it would be updated accordingly 
+
+Spring Cloud
 1. Spring Cloud
 2. Spring Cloud Api-gateway
 3. Spring Cloud Config
@@ -13,10 +17,17 @@ Spring Cloud
 8. API documentation with openAPIDoc with  Swagger UI-- In progress
 9. Spring Boot Starter
 10. Spring Test Suite 
-11. MySql with CRUD repository 
-12. Fault Tolerance and Fallback strategy --> Circuit Breaker & Retry with Ressilence4j (Hystrix is depreciated )
-13. Load Balancing by Spring Cloud Default Gateway (Ribbon is deprecated with Spring Boot 3)
-14. Global Exception Handlers -- In progress
+11. Fault Tolerance and Fallback strategy --> Circuit Breaker & Retry with Resilience4j (Hystrix is depreciated )
+12. Load Balancing by Spring Cloud Default Gateway (Ribbon is deprecated with Spring Boot 3)
+13. Global Exception Handlers -- In progress
+
+Others
+1. Lombok --> to provide getter , setters  & constructors
+2. ModelMapper --> to map entity beans to DTO--> In progress
+3. DTOs --> to abstract internal properties of Entities
+4. MySql with CRUD repository
+5. Docker Desktop
+6. RabbitMq instance (You can run it from Docker Desktop)
 
 CI CD 
 1. AWS ECS & Fargate - In progress
@@ -63,58 +74,81 @@ Migration to DGS Federation (GraphQL)--> In pipeline
 3. Single Endpoint would be exposed
 
 
+This Readme file is a work in progress and will get updated after every  in progress/pending  item is finished and checked in to this repository
 
 
+Steps to set up and run these microservices. 
+1. Download zipkin.jar from [here](https://zipkin.io/pages/quickstart) , start it by using command "java -jar filename" , it would start at port 
+   9411 and can be access as http://127.0.0.1:9411/
+2. Create 3 databases department_db , employee_db & organization_db in mysql database (you can use any other database just dont forget to use the 
+   correct dependency and db configuration in application.properties )
+3. Install docker desktop and run a local image of rabbitMq  by using command  "docker run --rm -it -p 5672:5672 {rabbitmqImagename that  you have 
+   installed in docker desktop}"
+4. Always Start Service Registry first -- it will start at  port 8761
+5. Then start config server --> it would need an additional GitHub repo by name config-server and this repo should have {servicename}.prperties 
+   file , it would start on port 8888
+6. Then start api gateway - it would  start at port 9191 , if you add any new resource in your services then it should be configured in 
+   api gateway's application.properties
+7. Then start department service , it would start at port 8080
+8. Then start organization service , it would start at port 8083
+9. Then start employee service , it would start at port 8081
 
+Once all Services started then you can hit individual endpoints of your services or can use apigateway 
 
-![Spring Cloud Architecture](https://github.com/choudharyamit3400/microservices-springboot/blob/main/architecture.png)
+To test you should  first create an Organisation  & Department 
 
-Circuit Breaker Pattern 
+Department: http://localhost:8080/api/departments
+type:post 
+```json
+{
+"departmentName": "IT",
+"departmentDescription": "InformationTechnology",
+"departmentCode": "IT001"
+}
+```
 
-![image](https://github.com/user-attachments/assets/20b9d72c-06fb-4430-aafa-1b7585298439)
+Organization: http://localhost:8083/api/organizations
+type : post
 
-Config Refersh Acrhitecture with Kafka 
+request: 
+```json 
+{
+    "organizationName": "Google",
+    "organizationDescription": "Google ",
+    "organizationCode": "GOOGLE001"
+}
+```
 
+Then create Employee: http://localhost:8081/api/employees
+type : post 
 
-![image](https://github.com/user-attachments/assets/22d44ddd-e490-4acc-a418-852a09d8edec)
+```json
+{
+    "firstName": "amit",
+    "lastName": "Kumar",
+    "email": "amitkumar@gmail.com",
+    "departmentCode": "IT001",
+    "organizationCode": "GOOGLE001"
+}
 
-Config Refresh Architecture with RabbitMq
-![image](https://github.com/user-attachments/assets/dd1adf2c-5334-4f52-a1f1-0ede607f6fca)
+```
+to retrieve employee : do a  get for  http://localhost:8081/api/employees/{empId}
 
-Config Auto Refresh  by GitHub Actions on Merge to Main with RabbitMq
+If your setup is correct then you can use api gateway endpoint to execute above operations .
 
-![image](https://github.com/user-attachments/assets/97bd47a8-d61d-4eb2-85de-3aaad3817128)
+to use api gateway  endpoint  format should be
+http://localhost:9191{path configured in application gateway's properties file}{param for the service}
+eg: employee service is configured as 
+```env
+spring.cloud.gateway.routes[0].id=EMPLOYEE-SERVICE
+spring.cloud.gateway.routes[0].uri=lb://EMPLOYEE-SERVICE
+spring.cloud.gateway.routes[0].predicates[0]=Path=/api/employees/**
+```
+notice predicate of the route its /api/employees/
+so our  APi Gateway endpoint to call employee service to get employee details would be 
+ http://localhost:9191/api/employees/{empId}
+type get 
+eg: http://localhost:9191/api/employees/8
 
-Distributed Tracing by Spring Cloud Sleuth and ZipKin
-
-![image](https://github.com/user-attachments/assets/9f3d5ff6-5df7-4824-8efb-733021da0088)
-
-Zipkin DashBoard
-
-![image](https://github.com/user-attachments/assets/54949ecb-d1d2-4c1b-af49-739330555440)
-
-Micro Service Communication Methods 
-
-![image](https://github.com/user-attachments/assets/a6cb034a-c228-4999-a79a-c5655be150c2)
-
-Asynchronous Micro Service Communication
-
-![image](https://github.com/user-attachments/assets/120d0651-e19c-4ed6-8962-1ecbe54bd18a)
-
-
-CI CD Architecture with GitHub workflows 
-
-<img width="785" alt="image" src="https://github.com/user-attachments/assets/52a51956-a312-48ee-b6f8-ee92529a177a">
-
-General Docker flow for your understanding 
-
-<img width="671" alt="image" src="https://github.com/user-attachments/assets/9a60b5aa-3fa3-4a8f-a982-f502693ce7d1">
-
-Steps to Dockerize an SpringBoot Application 
-
-<img width="706" alt="image" src="https://github.com/user-attachments/assets/820e8e3b-ba44-4c98-8331-79d4bfba2b78">
-
-
-This Readme file is a work in progress and will get updated after every  pending item is finished and checked in to this repository 
 
 
