@@ -2,7 +2,7 @@
   <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbm9yZ2ZxdTl1MGxmeWNodXM4bnYwOHNrM2E0d2NmNXV2MzdsdHU4OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9dHM/O2PhyxtkFwCtUO6nen/giphy.gif" width="100"/>
 </div>
 
-<div id="badges">
+<div id="badges" style="align-content: center">
  <a href="https://www.linkedin.com/in/amitkumarusa/"> <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/></a>
   
 <a href="https://www.youtube.com/@DontKnowHowToCode">
