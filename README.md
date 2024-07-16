@@ -4,7 +4,7 @@ Below mentioned modules & patterns  are used to create these micro services .
 
 Please discard indentation and formatting  of this readme file as its not as per the standard what we generally have . 
 This readme is intended  for my personal use as  quick refer doc for any module .
-Once all the modules are covered then it would be upadted accordingly 
+Once all the modules are covered then it would be updated accordingly 
 
 Spring  
 1. Sping Cloud
