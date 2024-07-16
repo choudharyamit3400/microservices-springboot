@@ -146,9 +146,11 @@ spring.cloud.gateway.routes[0].predicates[0]=Path=/api/employees/**
 ```
 notice predicate of the route its /api/employees/
 so our  APi Gateway endpoint to call employee service to get employee details would be 
- http://localhost:9191/api/employees/{empId}
+
+[http://localhost:9191/api/employees/{empId}]
+ 
 type get 
-eg: http://localhost:9191/api/employees/8
+eg: [http://localhost:9191/api/employees/8]
 
 
 
