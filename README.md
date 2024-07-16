@@ -1,8 +1,8 @@
-<div id="header" align="center">
-  <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbm9yZ2ZxdTl1MGxmeWNodXM4bnYwOHNrM2E0d2NmNXV2MzdsdHU4OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9dHM/O2PhyxtkFwCtUO6nen/giphy.gif" width="100"/>
+<div id="header" >
+  <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGlsam5hZDZidzc2OG15eXgyYnBkOHhjdzE0Z2VjczBqenY4OGU3biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/igRW3jH2LcCVzMqi5F/giphy.gif" width="100"/>
 </div>
 
-<div id="badges" style="align-content: center">
+<div id="badges" style="margin-left:35%">
  <a href="https://www.linkedin.com/in/amitkumarusa/"> <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/></a>
   
 <a href="https://www.youtube.com/@DontKnowHowToCode">
