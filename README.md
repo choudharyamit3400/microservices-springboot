@@ -30,17 +30,19 @@ I am a Full Stack Developer <img src="https://media.giphy.com/media/WUlplcMpOCEm
 
 - :telescope: I’m working as a Software Engineer and contributing to frontend and backend for building web applications.
 
-- :seedling: Exploring Technical Content Writing.
+- :seedling: Exploring Technical Content Writing , always learning something new .
 
-- :zap: In my free time, I solve problems on GeeksforGeeks and read tech articles.
+- :zap: In my free time, I read latest tech articles to keep myself updated with latest technologies.
 
 - :mailbox:How to reach me: [![Linkedin Badge](https://img.shields.io/badge/Amit%20Kumar-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/amitkumarusa/)
+
+:zzz: Enough about me lets dive into this repository to gather some understanding . 
 
 This is a  work in progress  microservice architecture that could be followed to learn SpringBoot Cloud based Microservices at one place .
 There is ongoing work to add  a lot of other capabilities and modules needed to create a real world application like system.
 
 
-Please discard indentation and formatting  of this readme file as its not as per the standard what we generally have . 
+Please discard indentation and formatting  of this readme file as it's not as per the standard what we generally have . 
 This readme is intended  for my personal use as  quick refer doc for any module .
 Once all the modules are covered then it would be updated accordingly 
 
