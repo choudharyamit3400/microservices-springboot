@@ -1,10 +1,12 @@
 This is a  work in progress  microservice architecture that could be followed to learn SpringBoot Cloud based Microservices at one place .
 There is ongoing work to add  a lot of other capabilities and modules needed to create a real world application like system.
-Below-mentioned modules & patterns  are used to create these microservices .
+
 
 Please discard indentation and formatting  of this readme file as its not as per the standard what we generally have . 
 This readme is intended  for my personal use as  quick refer doc for any module .
 Once all the modules are covered then it would be updated accordingly 
+
+Below-mentioned modules & patterns  are used to create these microservices .
 
 Spring Cloud
 1. Spring Cloud
