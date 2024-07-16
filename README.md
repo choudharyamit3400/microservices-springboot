@@ -176,9 +176,9 @@ type : post
 ```
 to retrieve employee : do a  get for  http://localhost:8081/api/employees/{empId}
 
-* If your setup is correct then you can use api gateway endpoint to execute above operations .
+-If your setup is correct then you can use api gateway endpoint to execute above operations .
 
-to use api gateway  endpoint  format should be
+To use api gateway  endpoint  format should be
 http://localhost:9191{path configured in application gateway's properties file}{param for the service}
 eg: employee service is configured as 
 ```env
@@ -186,7 +186,7 @@ spring.cloud.gateway.routes[0].id=EMPLOYEE-SERVICE
 spring.cloud.gateway.routes[0].uri=lb://EMPLOYEE-SERVICE
 spring.cloud.gateway.routes[0].predicates[0]=Path=/api/employees/**
 ```
-notice predicate of the route its /api/employees/
+Notice predicate of the route its /api/employees/
 so our  APi Gateway endpoint to call employee service to get employee details would be 
 
 [http://localhost:9191/api/employees/{empId}]
@@ -194,7 +194,41 @@ so our  APi Gateway endpoint to call employee service to get employee details wo
 type get 
 eg: [http://localhost:9191/api/employees/8]
 
-if you run into  any issue then please reach to me on [Linkedin](https://www.linkedin.com/in/amitkumarusa/) or you can email me at amit.kumar.
+Response should be something similar to below 
+
+```json
+{
+    "employee": {
+        "id": 8,
+        "firstName": "amit",
+        "lastName": "kumar",
+        "email": "amitkumar@gmail.com",
+        "departmentCode": "IT001",
+        "organizationCode": "GOOGLE001"
+    },
+    "department": {
+        "id": 1,
+        "departmentName": "IT",
+        "departmentDescription": "Information Technology",
+        "departmentCode": "IT001"
+    },
+    "organization": {
+        "id": 1,
+        "organizationName": "Google",
+        "organizationDescription": "Google",
+        "organizationCode": "GOOGLE001",
+        "createdDate": "2024-06-11T00:27:03.638596"
+    }
+}
+
+```
+
+- you can access Swagger Ui at {endpoint of your service}/swagger-ui/index.html
+eg Employee service is running at port 8080 on localhost so below endpoint can be used to access Swagger Ui for Employee Service
+
+http://localhost:8081/swagger-ui/index.html
+
+- if you run into  any issue then please reach to me on [Linkedin](https://www.linkedin.com/in/amitkumarusa/) or you can email me at amit.kumar.
 usa35@gmail.com
 
 
