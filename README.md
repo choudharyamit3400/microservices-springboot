@@ -1,5 +1,5 @@
 This is a  work in progress  microservice architecture that could be followed to learn SpingBoot Cloud based Microservices at one place .
-There is ongoing work to add  a lot of other capabilities and modules needed to create a real world application like system.
+This  is  an ongoing work  and would be updated with a lot of other capabilities and modules  required  to create a real world application like system.
 Below mentioned modules & patterns  are used to create these micro services .
 
 Please discard indentation and formatting  of this readme file as its not as per the standard what we generally have . 
