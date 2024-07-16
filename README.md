@@ -24,19 +24,40 @@ CI CD
 4. Auto Scalling -in pipeline
 5. GitHub Actions - in prgress
 
+User Authentication and Authorization
+1. STS
+2. user password encoder and decoder
+3. JWT token grant  & validation
+4. OAUTH with OIDC & PKCE (Proff Key for Code Exchange)
+5. Social Login
+6. Federated Login (Ping & OKta )
+   
 Security: --> in pipeline 
-1.Securing Rest Endpoints
-2.Securing actuator Endpoints
-3.Applying Governing policies at api gateway
-4.STS 
-  a. OIDC  flow 
-  b. OUATH 
-5.JWT token grant  & validation 
+1. Securing Rest Endpoints
+2. Securing actuator Endpoints
+3. Applying Governing policies at api gateway
+
+React Web Application : would be created in another repository  --> in pipeline
+ 1. User Registration
+ 2. Employee Registration
+ 3. Admin Profiles
+ 4. Web App security 
+ 5. Token Auto refresh
+    
+
 
 
 Async Micro Service  Communication -- In pipeline
 1. Event driven Micro Service communication (SNS--> Lambda , SQS-> Lambda, SNS->SQS->Lambda) -- in pipeline
 2. SQS polling for batch updates- in pipeline
+3. Async communication withe RabbitMq
+4. Async communication with Apache Kafka
+
+
+Migration to DGS Federation (GraphQL)--> In pipeline
+1. Rest Endpoint would be migrated to GraphQl
+2. Graph and SubGraph would be created
+3. Single Endpoint would be exposed
 
 
 
