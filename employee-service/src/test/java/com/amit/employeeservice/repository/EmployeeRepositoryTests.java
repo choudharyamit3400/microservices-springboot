@@ -2,6 +2,7 @@ package com.amit.employeeservice.repository;
 
 import com.amit.employeeservice.entity.Employee;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -16,16 +17,26 @@ import java.util.Optional;
 // be created
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class EmployeeRepositoryTests {
+	// we will be using the BDD testing --> given_when_then
+	Employee employee;
+
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	// we will be using the BDD testing --> given_when_then
+	@BeforeEach
+	public void setup() {
+		employee =
+				Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode("GOOGLE001").build();
+	}
+
+
 	// junit for save employee repository
 	@Test
 	public void givenEmployeeObject_whenSave_thenReturnSavedEmployee() {
 // given - precondition or setup
-		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
-				"GOOGLE001").build();
+		// uncomment if not using BeforeEach
+//		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
+//				"GOOGLE001").build();
 
 //when - operation or the behaviour that we are going to test eg here we would test save operation on employee object
 		Employee savedEmployee = employeeRepository.save(employee);
@@ -35,12 +46,13 @@ public class EmployeeRepositoryTests {
 		Assertions.assertThat(savedEmployee).isNotNull();
 		Assertions.assertThat(savedEmployee.getId()).isGreaterThan(0);
 	}
-// get employees
+
+	// get employees
 	@Test
 	public void givenEmployeeList_whenFindAll_thenReturnEmployeeList() {
 // given - precondition or setup
-		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
-				"GOOGLE001").build();
+//		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
+//				"GOOGLE001").build();
 		Employee employee2 = Employee.builder().firstName("john").lastName("cena").email("jc@gmial.com").departmentCode("IT001").organizationCode(
 				"GOOGLE001").build();
 		employeeRepository.save(employee);
@@ -57,16 +69,15 @@ public class EmployeeRepositoryTests {
 
 // ideal way is to create a separate tests for getByEmployeeID method
 		// test for getEmployee i.e. by employee id
-		Employee emp=employeeRepository.findById(list.get(0).getId()).get();
+		Employee emp = employeeRepository.findById(list.get(0).getId()).get();
 		Assertions.assertThat(emp).isNotNull();
 		Assertions.assertThat(emp.getId()).isEqualTo(list.get(0).getId());
 	}
+
 	// findByEmail
 	@Test
 	public void givenEmail_whenFindByEmail_thenReturnEmployee() {
-// given - precondition or setup
-		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
-				"GOOGLE001").build();
+// given - precondition or setup--> check before each for object creation
 		employeeRepository.save(employee);
 
 //when - operation or the behaviour that we are going to test eg here we would test findByEmail operation on employee object
@@ -77,16 +88,15 @@ public class EmployeeRepositoryTests {
 		Assertions.assertThat(resp).isNotNull();
 		Assertions.assertThat(resp.getEmail()).isEqualTo(employee.getEmail());
 	}
-//updateEmployee
+
+	//updateEmployee
 	@Test
 	public void givenEmployeeObject_whenUpdate_thenReturnUpdatedEmployee() {
 // given - precondition or setup
-		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
-				"GOOGLE001").build();
 		employeeRepository.save(employee);
 
 //when - operation or the behaviour that we are going to test eg here we would test update operation on employee object
-		Employee saved=employeeRepository.findById(employee.getId()).get();
+		Employee saved = employeeRepository.findById(employee.getId()).get();
 		saved.setFirstName("updated first name");
 		saved.setLastName("updated last name");
 		Employee resp = employeeRepository.save(saved);
@@ -97,12 +107,11 @@ public class EmployeeRepositoryTests {
 		Assertions.assertThat(resp.getFirstName()).isEqualTo(saved.getFirstName());
 		Assertions.assertThat(resp.getLastName()).isEqualTo(saved.getLastName());
 	}
-// delete employee operation
+
+	// delete employee operation
 	@Test
 	public void givenEmployeeObject_whenDelete_thenDeleteEmployee() {
 // given - precondition or setup
-		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
-				"GOOGLE001").build();
 		employeeRepository.save(employee);
 
 //when - operation or the behaviour that we are going to test eg here we would test delete operation on employee object
@@ -120,12 +129,10 @@ public class EmployeeRepositoryTests {
 	@Test
 	public void givenFirstNameAndLastName_whenFindByJPQL_thenReturnEmployee() {
 // given - precondition or setup
-		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
-				"GOOGLE001").build();
 		employeeRepository.save(employee);
 
 //when - operation or the behaviour that we are going to test eg here we would test findBY operation on employee object
-		Employee resp = employeeRepository.findByJPQL(employee.getFirstName(),employee.getLastName());
+		Employee resp = employeeRepository.findByJPQL(employee.getFirstName(), employee.getLastName());
 
 // then - verify the expected output --> here  from findByJPQL call should return the matching object
 		// assert resp is empty- as repository  findBy calls returns Optional thus we have to check empty instead of null
@@ -133,19 +140,18 @@ public class EmployeeRepositoryTests {
 		Assertions.assertThat(resp.getFirstName()).isEqualTo(employee.getFirstName());
 		Assertions.assertThat(resp.getLastName()).isEqualTo(employee.getLastName());
 	}
+
 	// JPQL with names params (we use firstName=:firstName and lastName=:lastName) & have used @Param annotation in method arguments
 	// we  have firstName & lastName
 	@Test
 	public void givenFirstNameAndLastName_whenFindByJPQLNamedParam_thenReturnEmployee() {
 // given - precondition or setup
-		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
-				"GOOGLE001").build();
 		employeeRepository.save(employee);
 
 //when - operation or the behaviour that we are going to test eg here we would test findBY JPQL named operation on employee object
-		Employee resp = employeeRepository.findByJPQLNamedParams(employee.getFirstName(),employee.getLastName());
+		Employee resp = employeeRepository.findByJPQLNamedParams(employee.getFirstName(), employee.getLastName());
 
-// then - verify the expected output --> here  from findByJPQL call should return the matching object
+// then - verify the expected output --> here  from findByJPQLNamedParams call should return the matching object
 		// assert resp is empty- as repository  findBy calls returns Optional thus we have to check empty instead of null
 		Assertions.assertThat(resp).isNotNull();
 		Assertions.assertThat(resp.getFirstName()).isEqualTo(employee.getFirstName());
@@ -158,33 +164,30 @@ public class EmployeeRepositoryTests {
 	@Test
 	public void givenFirstNameAndLastName_whenFindByNativeSqlIndexedQuery_thenReturnEmployee() {
 // given - precondition or setup
-		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
-				"GOOGLE001").build();
 		employeeRepository.save(employee);
 
 //when - operation or the behaviour that we are going to test eg here we would test findBY JPQL named operation on employee object
-		Employee resp = employeeRepository.findByNativeSql(employee.getFirstName(),employee.getLastName());
+		Employee resp = employeeRepository.findByNativeSql(employee.getFirstName(), employee.getLastName());
 
 // then - verify the expected output --> here  from findByJPQL call should return the matching object
-		// assert resp is empty- as repository  findBy calls returns Optional thus we have to check empty instead of null
+		// assert resp is empty- as repository  findByNativeSql calls returns Optional thus we have to check empty instead of null
 		Assertions.assertThat(resp).isNotNull();
 		Assertions.assertThat(resp.getFirstName()).isEqualTo(employee.getFirstName());
 		Assertions.assertThat(resp.getLastName()).isEqualTo(employee.getLastName());
 	}
+
 	// Native Query (we use exact column names in query ef first_name=?1 and last_name=?3
 	// as named params we  have used @Param annotation in method arguments eg: mName(@Param("firstname" String firstName ,@Param("lastName) String
 	// lastName))
 	@Test
 	public void givenFirstNameAndLastName_whenFindByNativeSqlNamedParams_thenReturnEmployee() {
 // given - precondition or setup
-		Employee employee = Employee.builder().firstName("amit").lastName("kumar").email("ak@gmial.com").departmentCode("IT001").organizationCode(
-				"GOOGLE001").build();
 		employeeRepository.save(employee);
 
 //when - operation or the behaviour that we are going to test eg here we would test findBY JPQL named operation on employee object
-		Employee resp = employeeRepository.findByNativeSqlWithNamedParams(employee.getFirstName(),employee.getLastName());
+		Employee resp = employeeRepository.findByNativeSqlWithNamedParams(employee.getFirstName(), employee.getLastName());
 
-// then - verify the expected output --> here  from findByJPQL call should return the matching object
+// then - verify the expected output --> here  from findByNativeSqlWithNamedParams call should return the matching object
 		// assert resp is empty- as repository  findBy calls returns Optional thus we have to check empty instead of null
 		Assertions.assertThat(resp).isNotNull();
 		Assertions.assertThat(resp.getFirstName()).isEqualTo(employee.getFirstName());
